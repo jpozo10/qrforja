@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QRForja — Crea tu Código QR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg class="logo-icon" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="10" height="10" rx="2.5" fill="var(--emerald)"/>
+      <rect x="16" y="2" width="10" height="10" rx="2.5" fill="var(--gold)"/>
+      <rect x="2" y="16" width="10" height="10" rx="2.5" fill="var(--gold)"/>
+      <rect x="16" y="16" width="5" height="5" rx="1" fill="var(--emerald)"/>
+      <rect x="21" y="16" width="5" height="5" rx="1" fill="var(--emerald)" opacity="0.4"/>
+      <rect x="16" y="21" width="5" height="5" rx="1" fill="var(--emerald)" opacity="0.4"/>
+      <rect x="21" y="21" width="5" height="5" rx="1" fill="var(--gold)"/>
+    </svg>
+    <span class="logo-text">QR<em>Forja</em></span>
+  </div>
+  <span class="nav-badge">Gratis · Sin registro</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Generador de Códigos QR</div>
+    <h1>Forja tu QR.<br><span class="hero-accent">A tu imagen.</span></h1>
+    <p>Personaliza módulos, esquinas y colores. Sube tu logo. Descarga en PNG o SVG. Sin límites, sin marcas de agua.</p>
+    <div class="pill-row">
+      <span class="pill">✦ Sin registro</span>
+      <span class="pill">✦ Sin marca de agua</span>
+      <span class="pill">✦ PNG + SVG</span>
+      <span class="pill">✦ Logo central</span>
+      <span class="pill">✦ 12 tipos de contenido</span>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS BAR -->
+<div class="steps-bar">
+  <button class="step-item active" id="step-1-tab" onclick="scrollToStep(1)">
+    <span class="step-num" id="snum-1">1</span>
+    <span class="step-label">Contenido</span>
+  </button>
+  <span class="step-connector"></span>
+  <button class="step-item" id="step-2-tab" onclick="scrollToStep(2)">
+    <span class="step-num" id="snum-2">2</span>
+    <span class="step-label">Diseño</span>
+  </button>
+  <span class="step-connector"></span>
+  <button class="step-item" id="step-3-tab" onclick="scrollToStep(3)">
+    <span class="step-num" id="snum-3">3</span>
+    <span class="step-label">Descargar</span>
+  </button>
+</div>
+
+<!-- MAIN -->
+<div class="main-wrap">
+  <div class="editor-layout">
+
+    <!-- LEFT COLUMN -->
+    <div class="editor-left">
+
+      <!-- PASO 1: TIPO DE CONTENIDO -->
+      <div class="panel" id="anchor-step-1">
+        <div class="panel-title">
+          <span class="panel-num">01</span> ¿Qué quieres compartir?
+        </div>
+        <div class="type-grid">
+          <button class="type-btn active" onclick="setType('url')" id="type-url">
+            <span class="t-icon">🔗</span><span class="t-label">URL / Web</span>
+          </button>
+          <button class="type-btn" onclick="setType('vcard')" id="type-vcard">
+            <span class="t-icon">👤</span><span class="t-label">Contacto</span>
+          </button>
+          <button class="type-btn" onclick="setType('wifi')" id="type-wifi">
+            <span class="t-icon">📶</span><span class="t-label">WiFi</span>
+          </button>
+          <button class="type-btn" onclick="setType('text')" id="type-text">
+            <span class="t-icon">💬</span><span class="t-label">Texto</span>
+          </button>
+          <button class="type-btn" onclick="setType('email')" id="type-email">
+            <span class="t-icon">📧</span><span class="t-label">Email</span>
+          </button>
+          <button class="type-btn" onclick="setType('sms')" id="type-sms">
+            <span class="t-icon">📱</span><span class="t-label">SMS</span>
+          </button>
+          <button class="type-btn" onclick="setType('phone')" id="type-phone">
+            <span class="t-icon">📞</span><span class="t-label">Teléfono</span>
+          </button>
+          <button class="type-btn" onclick="setType('whatsapp')" id="type-whatsapp">
+            <span class="t-icon">💚</span><span class="t-label">WhatsApp</span>
+          </button>
+          <button class="type-btn" onclick="setType('geo')" id="type-geo">
+            <span class="t-icon">📍</span><span class="t-label">Ubicación</span>
+          </button>
+          <button class="type-btn" onclick="setType('image')" id="type-image">
+            <span class="t-icon">🖼️</span><span class="t-label">Imagen</span>
+          </button>
+          <button class="type-btn" onclick="setType('pdf')" id="type-pdf">
+            <span class="t-icon">📄</span><span class="t-label">PDF</span>
+          </button>
+          <button class="type-btn" onclick="setType('youtube')" id="type-youtube">
+            <span class="t-icon">▶️</span><span class="t-label">Video</span>
+          </button>
+        </div>
+
+        <!-- FORMS -->
+        <div id="form-url">
+          <div class="field-group">
+            <label class="field-label">URL del sitio web</label>
+            <input type="url" id="input-url" placeholder="https://misitio.com" oninput="autoGenerate()">
+          </div>
+        </div>
+
+        <div id="form-vcard" style="display:none">
+          <div class="row-2">
+            <div class="field-group"><label class="field-label">Nombre</label><input type="text" id="vc-name" placeholder="Ana" oninput="autoGenerate()"></div>
+            <div class="field-group"><label class="field-label">Apellido</label><input type="text" id="vc-lastname" placeholder="García" oninput="autoGenerate()"></div>
+          </div>
+          <div class="row-2">
+            <div class="field-group"><label class="field-label">Teléfono</label><input type="tel" id="vc-phone" placeholder="+57 310 0000000" oninput="autoGenerate()"></div>
+            <div class="field-group"><label class="field-label">Email</label><input type="email" id="vc-email" placeholder="ana@email.com" oninput="autoGenerate()"></div>
+          </div>
+          <div class="row-2">
+            <div class="field-group"><label class="field-label">Empresa</label><input type="text" id="vc-org" placeholder="Mi Empresa" oninput="autoGenerate()"></div>
+            <div class="field-group"><label class="field-label">Cargo</label><input type="text" id="vc-title" placeholder="Director/a" oninput="autoGenerate()"></div>
+          </div>
+          <div class="field-group"><label class="field-label">Sitio web</label><input type="url" id="vc-url" placeholder="https://ana.com" oninput="autoGenerate()"></div>
+          <div class="field-group"><label class="field-label">Dirección</label><input type="text" id="vc-address" placeholder="Calle 72 # 10-34, Bogotá" oninput="autoGenerate()"></div>
+        </div>
+
+        <div id="form-wifi" style="display:none">
+          <div class="row-2">
+            <div class="field-group"><label class="field-label">Nombre de red (SSID)</label><input type="text" id="wifi-ssid" placeholder="MiRedWiFi" oninput="autoGenerate()"></div>
+            <div class="field-group"><label class="field-label">Contraseña</label><input type="text" id="wifi-pass" placeholder="contraseña123" oninput="autoGenerate()"></div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Seguridad</label>
+            <select id="wifi-sec" onchange="autoGenerate()">
+              <option value="WPA">WPA/WPA2</option>
+              <option value="WEP">WEP</option>
+              <option value="">Sin contraseña</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="form-text" style="display:none">
+          <div class="field-group">
+            <label class="field-label">Tu texto</label>
+            <textarea id="input-text" placeholder="Escribe aquí cualquier mensaje..." oninput="autoGenerate()"></textarea>
+          </div>
+        </div>
+
+        <div id="form-email" style="display:none">
+          <div class="field-group"><label class="field-label">Dirección de email</label><input type="email" id="email-to" placeholder="destinatario@email.com" oninput="autoGenerate()"></div>
+          <div class="field-group"><label class="field-label">Asunto</label><input type="text" id="email-sub" placeholder="Hola desde mi QR" oninput="autoGenerate()"></div>
+          <div class="field-group"><label class="field-label">Mensaje</label><textarea id="email-body" placeholder="Cuerpo del mensaje..." oninput="autoGenerate()"></textarea></div>
+        </div>
+
+        <div id="form-sms" style="display:none">
+          <div class="row-2">
+            <div class="field-group"><label class="field-label">Número</label><input type="tel" id="sms-to" placeholder="+57 310 0000000" oninput="autoGenerate()"></div>
+            <div class="field-group"><label class="field-label">Mensaje</label><input type="text" id="sms-body" placeholder="Escríbeme..." oninput="autoGenerate()"></div>
+          </div>
+        </div>
+
+        <div id="form-phone" style="display:none">
+          <div class="field-group"><label class="field-label">Número de teléfono</label><input type="tel" id="input-phone" placeholder="+57 310 0000000" oninput="autoGenerate()"></div>
+        </div>
+
+        <div id="form-whatsapp" style="display:none">
+          <div class="row-2">
+            <div class="field-group"><label class="field-label">Número (con código país)</label><input type="tel" id="wa-phone" placeholder="+573100000000" oninput="autoGenerate()"></div>
+            <div class="field-group"><label class="field-label">Mensaje inicial</label><input type="text" id="wa-msg" placeholder="Hola, me interesa..." oninput="autoGenerate()"></div>
+          </div>
+        </div>
+
+        <div id="form-geo" style="display:none">
+          <div class="row-2">
+            <div class="field-group"><label class="field-label">Latitud</label><input type="text" id="geo-lat" placeholder="4.6097" oninput="autoGenerate()"></div>
+            <div class="field-group"><label class="field-label">Longitud</label><input type="text" id="geo-lng" placeholder="-74.0817" oninput="autoGenerate()"></div>
+          </div>
+          <div class="field-group"><label class="field-label">O pega link de Google Maps</label><input type="text" id="geo-link" placeholder="https://maps.google.com/..." oninput="parseGeoLink()"></div>
+        </div>
+
+        <div id="form-image" style="display:none">
+          <div class="upload-zone" id="img-zone" onclick="document.getElementById('img-file').click()" ondragover="dragOver(event,'img-zone')" ondragleave="dragLeave('img-zone')" ondrop="dropFile(event,'img-file','img-zone')">
+            <input type="file" id="img-file" accept="image/*" onchange="handleFile('img-file','img-preview','image')">
+            <div class="up-icon">🖼️</div>
+            <div class="up-title">Clic o arrastra tu imagen aquí</div>
+            <div class="up-sub">JPG, PNG, GIF, WEBP — máx 5 MB</div>
+          </div>
+          <div id="img-preview"></div>
+        </div>
+
+        <div id="form-pdf" style="display:none">
+          <div class="upload-zone" id="pdf-zone" onclick="document.getElementById('pdf-file').click()" ondragover="dragOver(event,'pdf-zone')" ondragleave="dragLeave('pdf-zone')" ondrop="dropFile(event,'pdf-file','pdf-zone')">
+            <input type="file" id="pdf-file" accept="application/pdf" onchange="handleFile('pdf-file','pdf-preview','pdf')">
+            <div class="up-icon">📄</div>
+            <div class="up-title">Clic o arrastra tu PDF aquí</div>
+            <div class="up-sub">PDF — máx 5 MB</div>
+          </div>
+          <div id="pdf-preview"></div>
+        </div>
+
+        <div id="form-youtube" style="display:none">
+          <div class="field-group"><label class="field-label">URL del video (YouTube, Vimeo, etc.)</label><input type="url" id="input-yt" placeholder="https://youtube.com/watch?v=..." oninput="autoGenerate()"></div>
+        </div>
+      </div>
+
+      <!-- PASO 2: DISEÑO -->
+      <div class="panel" id="anchor-step-2">
+        <div class="panel-title">
+          <span class="panel-num">02</span> Diseño del QR
+        </div>
+
+        <!-- FORMA DE MÓDULOS (cuadros interiores) -->
+        <div class="design-section">
+          <div class="design-section-title">Forma de módulos <span class="design-hint">(píxeles interiores)</span></div>
+          <div class="shape-grid" id="module-shapes">
+            <button class="shape-btn active" data-shape="square" onclick="setModuleShape('square', this)" title="Cuadrado">
+              <svg width="28" height="28"><rect x="4" y="4" width="20" height="20" fill="currentColor"/></svg>
+              <span>Cuadrado</span>
+            </button>
+            <button class="shape-btn" data-shape="rounded" onclick="setModuleShape('rounded', this)" title="Redondeado">
+              <svg width="28" height="28"><rect x="4" y="4" width="20" height="20" rx="5" fill="currentColor"/></svg>
+              <span>Redondo</span>
+            </button>
+            <button class="shape-btn" data-shape="dot" onclick="setModuleShape('dot', this)" title="Punto">
+              <svg width="28" height="28"><circle cx="14" cy="14" r="9" fill="currentColor"/></svg>
+              <span>Punto</span>
+            </button>
+            <button class="shape-btn" data-shape="diamond" onclick="setModuleShape('diamond', this)" title="Diamante">
+              <svg width="28" height="28"><polygon points="14,3 25,14 14,25 3,14" fill="currentColor"/></svg>
+              <span>Diamante</span>
+            </button>
+            <button class="shape-btn" data-shape="star" onclick="setModuleShape('star', this)" title="Estrella">
+              <svg width="28" height="28"><polygon points="14,2 17,10 26,10 19,15 22,24 14,18 6,24 9,15 2,10 11,10" fill="currentColor"/></svg>
+              <span>Estrella</span>
+            </button>
+            <button class="shape-btn" data-shape="cross" onclick="setModuleShape('cross', this)" title="Cruz">
+              <svg width="28" height="28"><rect x="11" y="2" width="6" height="24" fill="currentColor"/><rect x="2" y="11" width="24" height="6" fill="currentColor"/></svg>
+              <span>Cruz</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- FORMA DE ESQUINAS EXTERNAS (los 3 "ojo" grandes) -->
+        <div class="design-section">
+          <div class="design-section-title">Forma de esquinas externas <span class="design-hint">(los 3 ojos)</span></div>
+          <div class="shape-grid" id="corner-outer-shapes">
+            <button class="shape-btn active" data-shape="square" onclick="setCornerOuter('square', this)" title="Cuadrado">
+              <svg width="28" height="28"><rect x="2" y="2" width="24" height="24" fill="none" stroke="currentColor" stroke-width="4"/></svg>
+              <span>Cuadrado</span>
+            </button>
+            <button class="shape-btn" data-shape="rounded" onclick="setCornerOuter('rounded', this)" title="Redondeado">
+              <svg width="28" height="28"><rect x="2" y="2" width="24" height="24" rx="7" fill="none" stroke="currentColor" stroke-width="4"/></svg>
+              <span>Redondo</span>
+            </button>
+            <button class="shape-btn" data-shape="circle" onclick="setCornerOuter('circle', this)" title="Círculo">
+              <svg width="28" height="28"><circle cx="14" cy="14" r="11" fill="none" stroke="currentColor" stroke-width="4"/></svg>
+              <span>Círculo</span>
+            </button>
+            <button class="shape-btn" data-shape="leaf" onclick="setCornerOuter('leaf', this)" title="Hoja">
+              <svg width="28" height="28"><path d="M3,3 Q14,3 25,14 Q14,25 3,14 Q3,3 3,3Z" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+              <span>Hoja</span>
+            </button>
+            <button class="shape-btn" data-shape="diamond" onclick="setCornerOuter('diamond', this)" title="Diamante">
+              <svg width="28" height="28"><polygon points="14,2 26,14 14,26 2,14" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+              <span>Diamante</span>
+            </button>
+            <button class="shape-btn" data-shape="star" onclick="setCornerOuter('star', this)" title="Estrella">
+              <svg width="28" height="28"><polygon points="14,1 17,10 26,10 19,15 22,24 14,19 6,24 9,15 2,10 11,10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+              <span>Estrella</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- FORMA DE ESQUINAS INTERNAS (punto central del ojo) -->
+        <div class="design-section">
+          <div class="design-section-title">Forma de esquinas internas <span class="design-hint">(punto del ojo)</span></div>
+          <div class="shape-grid" id="corner-inner-shapes">
+            <button class="shape-btn active" data-shape="square" onclick="setCornerInner('square', this)" title="Cuadrado">
+              <svg width="28" height="28"><rect x="6" y="6" width="16" height="16" fill="currentColor"/></svg>
+              <span>Cuadrado</span>
+            </button>
+            <button class="shape-btn" data-shape="rounded" onclick="setCornerInner('rounded', this)" title="Redondeado">
+              <svg width="28" height="28"><rect x="6" y="6" width="16" height="16" rx="4" fill="currentColor"/></svg>
+              <span>Redondo</span>
+            </button>
+            <button class="shape-btn" data-shape="circle" onclick="setCornerInner('circle', this)" title="Círculo">
+              <svg width="28" height="28"><circle cx="14" cy="14" r="7" fill="currentColor"/></svg>
+              <span>Círculo</span>
+            </button>
+            <button class="shape-btn" data-shape="diamond" onclick="setCornerInner('diamond', this)" title="Diamante">
+              <svg width="28" height="28"><polygon points="14,5 23,14 14,23 5,14" fill="currentColor"/></svg>
+              <span>Diamante</span>
+            </button>
+            <button class="shape-btn" data-shape="star" onclick="setCornerInner('star', this)" title="Estrella">
+              <svg width="28" height="28"><polygon points="14,4 16,10 23,10 17.5,14 19.5,21 14,16.5 8.5,21 10.5,14 5,10 12,10" fill="currentColor"/></svg>
+              <span>Estrella</span>
+            </button>
+            <button class="shape-btn" data-shape="cross" onclick="setCornerInner('cross', this)" title="Cruz">
+              <svg width="28" height="28"><rect x="12" y="6" width="4" height="16" fill="currentColor"/><rect x="6" y="12" width="16" height="4" fill="currentColor"/></svg>
+              <span>Cruz</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- COLORES -->
+        <div class="design-section">
+          <div class="design-section-title">Colores</div>
+          <div class="color-section-grid">
+            <div>
+              <div class="field-group">
+                <label class="field-label">Color de módulos</label>
+                <div class="color-row" id="dark-swatches">
+                  <div class="color-swatch active" style="background:#0a0a0f" data-hex="#0a0a0f" onclick="selectColor('dark',this)"></div>
+                  <div class="color-swatch" style="background:#00b894" data-hex="#00b894" onclick="selectColor('dark',this)"></div>
+                  <div class="color-swatch" style="background:#e17055" data-hex="#e17055" onclick="selectColor('dark',this)"></div>
+                  <div class="color-swatch" style="background:#6c5ce7" data-hex="#6c5ce7" onclick="selectColor('dark',this)"></div>
+                  <div class="color-swatch" style="background:#fd79a8" data-hex="#fd79a8" onclick="selectColor('dark',this)"></div>
+                  <div class="color-swatch" style="background:#f9ca24" data-hex="#f9ca24" onclick="selectColor('dark',this)"></div>
+                  <input type="color" id="dark-custom" value="#0a0a0f" oninput="customColor('dark',this)" title="Color personalizado">
+                </div>
+                <input class="color-code-input" type="text" id="dark-custom-text" value="#0a0a0f" placeholder="#0a0a0f o rgb(10,10,15)" oninput="customColorText('dark',this)">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Color de fondo</label>
+                <div class="color-row" id="light-swatches">
+                  <div class="color-swatch active" style="background:#ffffff;border:2px solid #e0e0e0" data-hex="#ffffff" onclick="selectColor('light',this)"></div>
+                  <div class="color-swatch" style="background:#f5f0ff" data-hex="#f5f0ff" onclick="selectColor('light',this)"></div>
+                  <div class="color-swatch" style="background:#e8fff5" data-hex="#e8fff5" onclick="selectColor('light',this)"></div>
+                  <div class="color-swatch" style="background:#fff5e6" data-hex="#fff5e6" onclick="selectColor('light',this)"></div>
+                  <div class="color-swatch" style="background:#0a0a0f" data-hex="#0a0a0f" onclick="selectColor('light',this)"></div>
+                  <div class="color-swatch" style="background:transparent;background-image:linear-gradient(45deg,#ccc 25%,transparent 25%,transparent 75%,#ccc 75%,#ccc),linear-gradient(45deg,#ccc 25%,white 25%,white 75%,#ccc 75%,#ccc);background-size:8px 8px;background-position:0 0,4px 4px;" data-hex="transparent" onclick="selectColor('light',this)" title="Transparente"></div>
+                  <input type="color" id="light-custom" value="#ffffff" oninput="customColor('light',this)" title="Color personalizado">
+                </div>
+                <input class="color-code-input" type="text" id="light-custom-text" value="#ffffff" placeholder="#ffffff, rgb(255,255,255) o transparent" oninput="customColorText('light',this)">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Color de esquinas</label>
+                <div class="color-row" id="corner-swatches">
+                  <div class="color-swatch active" style="background:transparent;border:2px dashed #aaa" data-hex="auto" onclick="selectColor('corner',this)" title="Igual que módulos">≡</div>
+                  <div class="color-swatch" style="background:#e17055" data-hex="#e17055" onclick="selectColor('corner',this)"></div>
+                  <div class="color-swatch" style="background:#00b894" data-hex="#00b894" onclick="selectColor('corner',this)"></div>
+                  <div class="color-swatch" style="background:#6c5ce7" data-hex="#6c5ce7" onclick="selectColor('corner',this)"></div>
+                  <div class="color-swatch" style="background:#fd79a8" data-hex="#fd79a8" onclick="selectColor('corner',this)"></div>
+                  <div class="color-swatch" style="background:#f9ca24" data-hex="#f9ca24" onclick="selectColor('corner',this)"></div>
+                  <input type="color" id="corner-custom" value="#0a0a0f" oninput="customColor('corner',this)" title="Color personalizado">
+                </div>
+                <input class="color-code-input" type="text" id="corner-custom-text" value="auto" placeholder="#e17055, rgb(225,112,85) o auto" oninput="customColorText('corner',this)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAMAÑO Y ECL -->
+        <div class="design-section">
+          <div class="design-section-title">Tamaño y calidad</div>
+          <div class="row-2">
+            <div class="field-group">
+              <label class="field-label">Tamaño: <span id="size-label">256px</span></label>
+              <input type="range" class="size-slider" id="qr-size" min="128" max="512" step="32" value="256" oninput="document.getElementById('size-label').innerText=this.value+'px'; autoGenerate()">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Corrección de error</label>
+              <select id="qr-ecl" onchange="autoGenerate()">
+                <option value="L">L — Bajo (7%)</option>
+                <option value="M" selected>M — Medio (15%)</option>
+                <option value="Q">Q — Cuartil (25%)</option>
+                <option value="H">H — Alto (30%) ← recomendado con logo</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOGO -->
+        <div class="design-section">
+          <div class="design-section-title">Logo central <span class="design-hint">(opcional)</span></div>
+          <div class="logo-upload-row">
+            <div class="upload-zone compact" id="logo-zone" onclick="document.getElementById('logo-file').click()">
+              <input type="file" id="logo-file" accept="image/*" onchange="handleLogo(this)">
+              <div class="up-icon">🏷️</div>
+              <div class="up-title">Sube tu logo</div>
+              <div class="up-sub">PNG con transparencia ideal · Usa corrección H</div>
+            </div>
+            <div id="logo-preview-wrap" style="display:none">
+              <img id="logo-preview-img" src="" alt="Logo preview">
+              <button class="btn-remove-logo" onclick="removeLogo()">✕ Quitar</button>
+            </div>
+          </div>
+          <div class="field-group hidden" id="logo-size-control">
+            <label class="field-label">Tamaño del logo: <span id="logo-size-label">22%</span></label>
+            <input type="range" class="size-slider" id="logo-size" min="10" max="35" step="1" value="22" oninput="document.getElementById('logo-size-label').innerText=this.value+'%'; autoGenerate()">
+          </div>
+        </div>
+
+        <!-- FORMA EXTERIOR DEL QR (borde del contenedor) -->
+        <div class="design-section">
+          <div class="design-section-title">Forma exterior del QR <span class="design-hint">(borde del código)</span></div>
+          <div class="shape-grid" id="outer-frame-shapes">
+            <button class="shape-btn active" data-shape="none" onclick="setOuterFrame('none', this)" title="Sin borde">
+              <svg width="28" height="28"><rect x="3" y="3" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3,2"/></svg>
+              <span>Sin marco</span>
+            </button>
+            <button class="shape-btn" data-shape="square" onclick="setOuterFrame('square', this)" title="Cuadrado">
+              <svg width="28" height="28"><rect x="2" y="2" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+              <span>Cuadrado</span>
+            </button>
+            <button class="shape-btn" data-shape="rounded" onclick="setOuterFrame('rounded', this)" title="Redondeado">
+              <svg width="28" height="28"><rect x="2" y="2" width="24" height="24" rx="8" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+              <span>Redondo</span>
+            </button>
+            <button class="shape-btn" data-shape="circle" onclick="setOuterFrame('circle', this)" title="Círculo">
+              <svg width="28" height="28"><circle cx="14" cy="14" r="12" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+              <span>Círculo</span>
+            </button>
+            <button class="shape-btn" data-shape="label-bottom" onclick="setOuterFrame('label-bottom', this)" title="Etiqueta abajo">
+              <svg width="28" height="28"><rect x="2" y="2" width="24" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="2" y="22" width="24" height="5" rx="2" fill="currentColor" opacity="0.4"/></svg>
+              <span>Etiqueta ↓</span>
+            </button>
+            <button class="shape-btn" data-shape="label-top" onclick="setOuterFrame('label-top', this)" title="Etiqueta arriba">
+              <svg width="28" height="28"><rect x="2" y="8" width="24" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="2" y="2" width="24" height="5" rx="2" fill="currentColor" opacity="0.4"/></svg>
+              <span>Etiqueta ↑</span>
+            </button>
+          </div>
+          <div id="label-text-group" class="field-group" style="display:none;margin-top:10px;">
+            <label class="field-label">Texto de la etiqueta</label>
+            <input type="text" id="frame-label-text" placeholder="ESCANÉAME" maxlength="20" oninput="autoGenerate()">
+          </div>
+        </div>
+
+        <button class="btn-generate" onclick="generateQR()">
+          <span class="btn-generate-icon">⚡</span> Generar código QR
+        </button>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: PREVIEW -->
+    <div class="editor-right">
+      <div class="preview-wrap" id="anchor-step-3">
+        <div class="preview-header">Vista previa</div>
+
+        <div class="qr-canvas-box">
+          <div id="qr-output">
+            <div class="qr-empty">
+              <div class="empty-icon">◻</div>
+              <div>Tu QR aparecerá aquí</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="download-row" id="dl-row" style="display:none">
+          <button class="btn-dl primary" onclick="downloadQR('png')">⬇ Descargar PNG</button>
+          <button class="btn-dl" onclick="downloadQR('svg')">SVG</button>
+          <button class="btn-dl full" onclick="openScanModal()">📷 Ver para escanear</button>
+        </div>
+
+        <div class="instructions-box">
+          <div class="instr-title">Cómo usar</div>
+          <ol>
+            <li>Elige el tipo de contenido</li>
+            <li>Rellena los datos</li>
+            <li>Personaliza formas y colores</li>
+            <li>Pulsa <strong>Generar QR</strong></li>
+            <li>Descarga o escanea</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FEATURES -->
+  <div class="features-section">
+    <div class="features-title">Por qué QRForja</div>
+    <div class="feature-strip">
+      <div class="feature-card">
+        <div class="f-icon">🆓</div>
+        <h4>100% gratuito</h4>
+        <p>Sin planes de pago, sin límite de generaciones, sin marca de agua. Todo funciona en tu navegador.</p>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon">🔒</div>
+        <h4>Privado por diseño</h4>
+        <p>Tu información nunca sale de tu dispositivo. Los archivos se procesan localmente.</p>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon">🎨</div>
+        <h4>Personalización real</h4>
+        <p>Módulos, esquinas internas y externas en diferentes formas. Colores independientes para cada parte.</p>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon">🏷️</div>
+        <h4>Logo en el centro</h4>
+        <p>Sube tu logo PNG y aparecerá integrado en el centro del QR, con tamaño ajustable.</p>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon">📦</div>
+        <h4>PNG y SVG</h4>
+        <p>Descarga en alta resolución para impresión o en SVG vectorial para escalar sin pérdida.</p>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon">🌐</div>
+        <h4>12 tipos de contenido</h4>
+        <p>URL, contactos, WiFi, texto, email, SMS, teléfono, WhatsApp, ubicación, imagen, PDF y video.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="scan-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeScanModal()">×</button>
+    <h3>📷 Escanea tu código QR</h3>
+    <p>Apunta la cámara de tu teléfono a este QR</p>
+    <div id="scan-qr-display"></div>
+    <div class="scan-note">
+      En la mayoría de teléfonos basta con abrir la <strong>cámara</strong> y apuntarla al código.<br>
+      Si no funciona, busca "lector QR" en tu tienda de apps.
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<!-- qrcode.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
