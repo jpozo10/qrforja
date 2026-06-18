@@ -192,23 +192,17 @@
         </div>
 
         <div id="form-image" style="display:none">
-          <div class="upload-zone" id="img-zone" onclick="document.getElementById('img-file').click()" ondragover="dragOver(event,'img-zone')" ondragleave="dragLeave('img-zone')" ondrop="dropFile(event,'img-file','img-zone')">
-            <input type="file" id="img-file" accept="image/*" onchange="handleFile('img-file','img-preview','image')">
-            <div class="up-icon">🖼️</div>
-            <div class="up-title">Clic o arrastra tu imagen aquí</div>
-            <div class="up-sub">JPG, PNG, GIF, WEBP — máx 5 MB</div>
+          <div class="field-group">
+            <label class="field-label">URL publica de la imagen</label>
+            <input type="url" id="image-url" placeholder="https://tuusuario.github.io/tu-repo/imagen.png" oninput="autoGenerate()">
           </div>
-          <div id="img-preview"></div>
         </div>
 
         <div id="form-pdf" style="display:none">
-          <div class="upload-zone" id="pdf-zone" onclick="document.getElementById('pdf-file').click()" ondragover="dragOver(event,'pdf-zone')" ondragleave="dragLeave('pdf-zone')" ondrop="dropFile(event,'pdf-file','pdf-zone')">
-            <input type="file" id="pdf-file" accept="application/pdf" onchange="handleFile('pdf-file','pdf-preview','pdf')">
-            <div class="up-icon">📄</div>
-            <div class="up-title">Clic o arrastra tu PDF aquí</div>
-            <div class="up-sub">PDF — máx 5 MB</div>
+          <div class="field-group">
+            <label class="field-label">URL publica del PDF</label>
+            <input type="url" id="pdf-url" placeholder="https://tuusuario.github.io/tu-repo/documento.pdf" oninput="autoGenerate()">
           </div>
-          <div id="pdf-preview"></div>
         </div>
 
         <div id="form-youtube" style="display:none">
