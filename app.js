@@ -108,24 +108,13 @@ function buildContent() {
       var lat = v('geo-lat'), lng = v('geo-lng');
       return (lat && lng) ? 'geo:' + lat + ',' + lng : null;
     case 'image':
-      return fileDataUrls['image'] ? buildFileViewerUrl(fileDataUrls['image'], 'image') : null;
+      return v('image-url') || null;
     case 'pdf':
-      return fileDataUrls['pdf'] ? buildFileViewerUrl(fileDataUrls['pdf'], 'pdf') : null;
+      return v('pdf-url') || null;
     case 'youtube':
       return v('input-yt') || null;
     default: return null;
   }
-}
-
-function buildFileViewerUrl(dataUrl, type) {
-  var html;
-  if (type === 'image') {
-    html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Imagen</title><style>body{margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#111;}img{max-width:100%;max-height:100vh;border-radius:8px;}</style></head><body><img src="' + dataUrl + '"></body></html>';
-  } else {
-    html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>PDF</title><style>body{margin:0;height:100vh;}</style></head><body><embed src="' + dataUrl + '" width="100%" height="100%" type="application/pdf"></body></html>';
-  }
-  var blob = new Blob([html], {type: 'text/html'});
-  return URL.createObjectURL(blob);
 }
 
 function v(id) {
